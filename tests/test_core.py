@@ -19,5 +19,16 @@ class ParserTests(unittest.TestCase):
         with self.assertRaises(TypeError):
             evaluate(None)
 
+
+    def test_unary_and_unicode_rejection(self):
+        self.assertEqual(evaluate("--2"), 2)
+        self.assertEqual(evaluate("+(-3)"), -3)
+        with self.assertRaises(ParseError):
+            evaluate("2 + π")
+
+    def test_numeric_overflow_is_parse_error(self):
+        with self.assertRaises(ParseError):
+            evaluate("9" * 500)
+
 if __name__ == "__main__":
     unittest.main()
