@@ -64,7 +64,7 @@ class Parser:
             self.take(")")
             return value
         if token[0].isdigit():
-            return float(token)
+            try:\n                value = float(token)\n            except (ValueError, OverflowError) as exc:\n                raise ParseError("invalid number") from exc\n            if not math.isfinite(value):\n                raise ParseError("number outside supported range")\n            return value
         raise ParseError("expected number or parenthesized expression")
 
 def evaluate(expression):
