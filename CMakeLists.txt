@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(parser_workshop_cpp LANGUAGES CXX)
+enable_testing()
+add_executable(test_parser cpp/tests/test_parser.cpp)
+target_include_directories(test_parser PRIVATE cpp/include)
+target_compile_features(test_parser PRIVATE cxx_std_11)
+add_test(NAME parser_cpp COMMAND test_parser)
